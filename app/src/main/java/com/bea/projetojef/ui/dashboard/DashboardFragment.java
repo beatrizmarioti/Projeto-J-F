@@ -39,8 +39,6 @@ public class DashboardFragment extends Fragment {
             database.salvarCracha(requireContext(), nomeInput, numeroInput);
         });
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 //
