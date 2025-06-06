@@ -22,10 +22,10 @@ public class Database {
     public void salvarCracha(Context context, TextInputLayout nomeInput, TextInputLayout numeroInput) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+        String cracha = numeroInput.getEditText().getText().toString().trim();
         String nome = nomeInput.getEditText().getText().toString().trim();
-        String numeroStr = numeroInput.getEditText().getText().toString().trim();
 
-        if (nome.isEmpty() || numeroStr.isEmpty()) {
+        if (nome.isEmpty() || cracha.isEmpty()) {
             Toast.makeText(context, "Bixo leso, coloca todos os campos", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -44,24 +44,27 @@ public class Database {
                 final int idParaSalvar = novoId;
 
                 // Criar novo crachá
-                Cracha cracha = new Cracha();
-                cracha.setId(idParaSalvar);
-                cracha.setNome(nome);
-                cracha.setInicio("");
-                cracha.setTermino("");
+                Cracha registroCracha = new Cracha();
+                registroCracha.setId(idParaSalvar);
+                registroCracha.setNome(nome);
+                registroCracha.setCracha(cracha);
+                registroCracha.setInicio("");
+                registroCracha.setTermino("");
 
                 // Salvar o crachá com ID novo
                 db.collection("colaborador").document(String.valueOf(idParaSalvar))
-                        .set(cracha)
+                        .set(registroCracha)
                         .addOnSuccessListener(aVoid -> {
                             // Atualizar contador de IDs
                             db.collection("colaborador").document("id_cracha")
                                     .update("id", idParaSalvar);
 
-                            Toast.makeText(context, "Salvo Desgraçaa!!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Crachá registrado com sucesso!", Toast.LENGTH_SHORT).show();
                         })
-                        .addOnFailureListener(e ->
-                                Toast.makeText(context, "Nao funfou: " + e.getMessage(), Toast.LENGTH_SHORT).show()
+                        .addOnFailureListener(e -> {
+                                Toast.makeText(context, "Não foi possível registrar crachá", Toast.LENGTH_SHORT).show();
+                                System.out.println(e.getMessage());
+                            }
                         );
 
             } else {
