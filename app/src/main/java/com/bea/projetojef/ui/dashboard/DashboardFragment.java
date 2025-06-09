@@ -31,7 +31,7 @@ public class DashboardFragment extends Fragment {
         TextInputLayout numeroInput = binding.numIn;
         Button btnSalvar = binding.btnSalvar;
 
-        // Instanciar sua classe Database
+        // Instanciar classe Database
         Database database = new Database();
 
 
