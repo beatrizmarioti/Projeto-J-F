@@ -26,7 +26,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
-            android:id="@+id/cracha"
+            android:id="@+id/inicio"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Início: 01/01/2025 08:00"
@@ -45,7 +45,7 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/cracha"
+            app:layout_constraintTop_toBottomOf="@id/inicio"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp"/>
 
@@ -57,7 +57,7 @@
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/cracha"
+            app:layout_constraintTop_toBottomOf="@id/inicio"
             app:layout_constraintStart_toEndOf="@id/label_termino"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
@@ -70,7 +70,7 @@
             android:textAllCaps="false"
             android:backgroundTint="#557A46"
             android:textColor="#FFFFFF"
-            app:layout_constraintTop_toBottomOf="@id/cracha"
+            app:layout_constraintTop_toBottomOf="@id/inicio"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp" />
