@@ -1,4 +1,4 @@
-package com.bea.projetojef;
+package com.bea.projetojef.ui;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bea.projetojef.Atendimento;
+import com.bea.projetojef.R;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +24,6 @@ public class AtendimentoAdapter extends RecyclerView.Adapter<AtendimentoAdapter.
     private final List<Atendimento> lista;
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    // Formatação de data/hora para exibir no layout
     private static final SimpleDateFormat FORMATADOR =
             new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
@@ -31,12 +32,13 @@ public class AtendimentoAdapter extends RecyclerView.Adapter<AtendimentoAdapter.
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView nome, inicio, termino, labelTermino;
+        TextView nome, cracha, inicio, termino, labelTermino;
         Button botaoTerminar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nome = itemView.findViewById(R.id.nome);
+            cracha = itemView.findViewById(R.id.cracha);
             inicio = itemView.findViewById(R.id.inicio);
             termino = itemView.findViewById(R.id.termino);
             labelTermino = itemView.findViewById(R.id.label_termino);
@@ -56,28 +58,23 @@ public class AtendimentoAdapter extends RecyclerView.Adapter<AtendimentoAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Atendimento atendimento = lista.get(position);
 
-        // Preenche os campos do card com os dados
         holder.nome.setText(atendimento.getNome());
+        holder.cracha.setText("Crachá: " + atendimento.getCracha());
         holder.inicio.setText(atendimento.getInicio());
 
-        // Verifica se já há término registrado
-        boolean terminou =
-                atendimento.getTermino() != null && !atendimento.getTermino().isEmpty();
+        boolean terminou = atendimento.getTermino() != null && !atendimento.getTermino().isEmpty();
 
         if (terminou) {
             holder.termino.setVisibility(View.VISIBLE);
             holder.labelTermino.setVisibility(View.VISIBLE);
             holder.botaoTerminar.setVisibility(View.GONE);
+            holder.termino.setText(atendimento.getTermino());
         } else {
             holder.termino.setVisibility(View.GONE);
             holder.labelTermino.setVisibility(View.GONE);
             holder.botaoTerminar.setVisibility(View.VISIBLE);
         }
 
-
-        if (terminou) {
-            holder.termino.setText(atendimento.getTermino());
-        }
         holder.botaoTerminar.setOnClickListener(v -> {
             if (atendimento.getId() <= 0) {
                 Toast.makeText(v.getContext(),
@@ -85,11 +82,9 @@ public class AtendimentoAdapter extends RecyclerView.Adapter<AtendimentoAdapter.
                 return;
             }
 
-            // Pega a hora atual e salva no objeto
             String dataHora = FORMATADOR.format(new Date());
             atendimento.setTermino(dataHora);
 
-            // Atualiza o campo "termino" no Firestore
             db.collection("colaborador")
                     .document(String.valueOf(atendimento.getId()))
                     .update("termino", dataHora)
