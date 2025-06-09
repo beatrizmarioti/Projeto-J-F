@@ -37,7 +37,7 @@ public class AtendimentoAdapter extends RecyclerView.Adapter<AtendimentoAdapter.
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nome = itemView.findViewById(R.id.nome);
-            inicio = itemView.findViewById(R.id.inicio);
+            inicio = itemView.findViewById(R.id.cracha);
             termino = itemView.findViewById(R.id.termino);
             labelTermino = itemView.findViewById(R.id.label_termino);
             botaoTerminar = itemView.findViewById(R.id.botao_terminar);

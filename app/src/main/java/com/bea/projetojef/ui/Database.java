@@ -4,6 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -70,6 +72,23 @@ public class Database {
             } else {
                 Toast.makeText(context, "Erro ao gerar ID: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
+        });
+
+        db.collection("admin").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (error != null) {
+                    System.out.println("Deu ruim" + error.getMessage());
+                    return;
+                }
+//                listaNota.clear();
+//                for (DocumentSnapshot doc : value.getDocuments()) {
+//                    Nota objNota = doc.toObject(Nota.class);
+//                    listaNota.add(objNota);
+//                    binding.rv.getAdapter().notifyDataSetChanged();
+//                }
+            }
+
         });
     }
 

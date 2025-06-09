@@ -37,7 +37,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nomeIn"
+        android:id="@+id/senhaAdmin"
         android:layout_width="317dp"
         android:layout_height="70dp"
         android:layout_marginStart="47dp"
@@ -63,5 +63,5 @@
         android:text="Registrar Cracha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nomeIn" />
+        app:layout_constraintTop_toBottomOf="@+id/senhaAdmin" />
 </androidx.constraintlayout.widget.ConstraintLayout>
