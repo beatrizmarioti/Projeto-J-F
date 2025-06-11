@@ -158,6 +158,8 @@ public class RemoverRegistro extends Fragment {
     private FirebaseFirestore db;
     private final List<Administrador> lista = new ArrayList<>();
     private AdminAdapter adapter;
+
+    // Variáveis para armazenar o intervalo do mês passado
     private Date inicioMesPassado;
     private Date fimMesPassado;
 
@@ -177,6 +179,7 @@ public class RemoverRegistro extends Fragment {
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerView.setAdapter(adapter);
 
+        // Calcula o intervalo do mês passado e armazena nas variáveis
         calcularIntervaloMesPassado();
 
         carregarTudo();
