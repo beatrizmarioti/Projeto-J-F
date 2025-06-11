@@ -3,20 +3,17 @@ package com.bea.projetojef.ui;
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.bea.projetojef.Administrador;
-import com.google.android.gms.tasks.OnCompleteListener;
+import com.bea.projetojef.Atendimento;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.bea.projetojef.Cracha;
 
 public class Database {
     public Database() {
@@ -47,7 +44,7 @@ public class Database {
                 final int idParaSalvar = novoId;
 
                 // Criar novo crachá
-                Cracha registroCracha = new Cracha();
+                Atendimento registroCracha = new Atendimento();
                 registroCracha.setId(idParaSalvar);
                 registroCracha.setNome(nome);
                 registroCracha.setCracha(cracha);
