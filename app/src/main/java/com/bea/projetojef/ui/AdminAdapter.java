@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -57,6 +58,14 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
             }
         });
 
+    }
+    public boolean validarCachar(String senhaDigitada){
+        for (Administrador adm : lista) {
+            if (adm.getCracha().equals(senhaDigitada)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
