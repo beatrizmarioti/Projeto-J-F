@@ -96,7 +96,7 @@ public class Database {
     public void remover(Context c, Administrador argAdmin) {
         // Abrir banco de dados
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("ListaAdmin").document(String.valueOf(argAdmin.getId())).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+        db.collection("ListaNotas").document(String.valueOf(argNota.getId())).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(c, "Removido com sucesso", Toast.LENGTH_SHORT).show();
