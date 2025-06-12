@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -52,4 +53,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
 
     implementation("com.google.android.material:material:1.10.0")
+
+    implementation ("androidx.navigation:navigation-fragment:2.7.7")
+    implementation ("androidx.navigation:navigation-ui:2.7.7")
 }

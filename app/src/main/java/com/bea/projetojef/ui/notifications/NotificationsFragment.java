@@ -18,7 +18,6 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.bea.projetojef.R;
 import com.bea.projetojef.databinding.FragmentNotificationsBinding;
 import com.bea.projetojef.ui.Database;
-import com.bea.projetojef.ui.RemoverRegistro;
 import com.bea.projetojef.ui.SenhaCallback;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -51,9 +50,16 @@ public class NotificationsFragment extends Fragment {
                     if (valido) {
                         Toast.makeText(getContext(), "Senha válida, acesso permitido", Toast.LENGTH_SHORT).show();
 
-                        // Navegação via FragmentTransaction
-                        Intent intent = new Intent(getContext(), RemoverRegistro.class);
-                        startActivity(intent);
+                        // TROCA O FRAGMENTO ATUAL PELO RemoverRegistro
+//                        FragmentTransaction transaction = requireActivity()
+//                                .getSupportFragmentManager()
+//                                .beginTransaction();
+//                        transaction.replace(R.id.nav_host_fragment_activity_main, new RemoverRegistro());
+//                        transaction.addToBackStack(null); // permite voltar com botão de voltar
+//                        transaction.commit();
+                        NavController navController = NavHostFragment.findNavController(NotificationsFragment.this);
+                        navController.navigate(R.id.action_navigation_notifications_to_navigation_remover);
+
 
                     } else {
                         Toast.makeText(getContext(), "Senha inválida, acesso negado", Toast.LENGTH_SHORT).show();
