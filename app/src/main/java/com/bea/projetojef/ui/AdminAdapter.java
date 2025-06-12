@@ -10,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bea.projetojef.Administrador;
+import com.bea.projetojef.AdministradorHelo;
 import com.bea.projetojef.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -18,10 +20,14 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
     private final List<Administrador> lista;
     private Database db = new Database();
 
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
+
+
 
     public AdminAdapter(List<Administrador> lista) {
         this.lista = lista;
     }
+
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView nome, numCracha, inicio;
@@ -59,14 +65,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
         });
 
     }
-    public boolean validarCachar(String senhaDigitada){
-        for (Administrador adm : lista) {
-            if (adm.getCracha().equals(senhaDigitada)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     @Override
     public int getItemCount() {

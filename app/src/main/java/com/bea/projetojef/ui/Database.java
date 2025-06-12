@@ -83,5 +83,27 @@ public class Database {
             }
         });
     }
+    public void validarCachar(String senhaDigitada, SenhaCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("admin")
+                .document("senha")
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String senha = documentSnapshot.getString("senha");
+                        if (senha != null && senha.equals(senhaDigitada)) {
+                            callback.onResultado(true);
+                        } else {
+                            callback.onResultado(false);
+                        }
+                    } else {
+                        callback.onResultado(false);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    callback.onResultado(false);
+                });
+    }
 
 }
