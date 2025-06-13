@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".navigation_remover">
+    tools:context=".ui.admin.navigation_remover">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -12,12 +12,14 @@
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="57dp"
-            android:text="Iniciar atendimento"
+            android:layout_width="352dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="56dp"
+            android:gravity="center"
+            android:text="Indique o cracha que você deseja filtrar do mês passado"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.457"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,7 +63,7 @@
             android:layout_marginTop="16dp" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"

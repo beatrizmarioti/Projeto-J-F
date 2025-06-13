@@ -22,7 +22,7 @@ import java.util.List;
 
 public class navigation_remover extends Fragment {
 
-    private RemoverRegistroBinding binding;
+    private FragmentNavigationRemoverBinding binding;
     private FirebaseFirestore db;
     private final List<Administrador> lista = new ArrayList<>();
     private AdminAdapter adapter;
