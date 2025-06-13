@@ -1,4 +1,4 @@
-package com.bea.projetojef.ui.home;
+package com.bea.projetojef.ui.admin;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,29 +10,34 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.bea.projetojef.Atendimento;
-import com.bea.projetojef.ui.AtendimentoAdapter;
-import com.bea.projetojef.databinding.FragmentHomeBinding;
+import com.bea.projetojef.Administrador;
+import com.bea.projetojef.databinding.FragmentNavigationRemoverBinding;
+import com.bea.projetojef.ui.AdminAdapter;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
-public class HomeFragment extends Fragment {
+public class navigation_remover extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentNavigationRemoverBinding binding;
     private FirebaseFirestore db;
-    private final List<Atendimento> lista = new ArrayList<>();
-    private AtendimentoAdapter adapter;
+    private final List<Administrador> lista = new ArrayList<>();
+    private AdminAdapter adapter;
+
+    private String inicioMesPassadoStr;
+    private String fimMesPassadoStr;
+
+    public navigation_remover() {
+    }
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        binding = FragmentNavigationRemoverBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -41,15 +46,16 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         db = FirebaseFirestore.getInstance();
-        adapter = new AtendimentoAdapter(lista);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerView.setAdapter(adapter);
+        adapter = new AdminAdapter(lista);
+        binding.recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerView2.setAdapter(adapter);
 
+        calcularIntervaloMesPassado();
         carregarTudo();
 
         binding.buscar.setOnClickListener(v -> {
             if (binding.textInputLayout.getEditText() == null) {
-                Toast.makeText(getContext(), "crachá inválido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Crachá inválido", Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -61,29 +67,22 @@ public class HomeFragment extends Fragment {
 
             db.collection("colaborador")
                     .whereEqualTo("cracha", cracha)
+                    .whereGreaterThanOrEqualTo("dataRegistro", inicioMesPassadoStr)
+                    .whereLessThanOrEqualTo("dataRegistro", fimMesPassadoStr)
                     .get()
                     .addOnSuccessListener(snapshots -> {
                         lista.clear();
-
                         for (QueryDocumentSnapshot doc : snapshots) {
-                            Atendimento a = doc.toObject(Atendimento.class);
+                            Administrador a = doc.toObject(Administrador.class);
                             Long id = doc.getLong("id");
                             if (id != null) {
                                 a.setId(id);
                             }
-
-                            String dataHoraAtual = getDataHoraAtual();
-                            a.setInicio(dataHoraAtual);
-
-                            db.collection("colaborador")
-                                    .document(String.valueOf(a.getId()))
-                                    .update("inicio", dataHoraAtual);
-
                             lista.add(a);
                         }
 
                         if (lista.isEmpty()) {
-                            Toast.makeText(getContext(), "Colaborador não encontrado", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Colaborador não encontrado no mês passado", Toast.LENGTH_SHORT).show();
                         }
 
                         adapter.notifyDataSetChanged();
@@ -94,13 +93,29 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void calcularIntervaloMesPassado() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        Calendar calInicio = Calendar.getInstance();
+        calInicio.add(Calendar.MONTH, -1);
+        calInicio.set(Calendar.DAY_OF_MONTH, 1);
+        inicioMesPassadoStr = sdf.format(calInicio.getTime());
+
+        Calendar calFim = Calendar.getInstance();
+        calFim.add(Calendar.MONTH, -1);
+        calFim.set(Calendar.DAY_OF_MONTH, calFim.getActualMaximum(Calendar.DAY_OF_MONTH));
+        fimMesPassadoStr = sdf.format(calFim.getTime());
+    }
+
     private void carregarTudo() {
         db.collection("colaborador")
+                .whereGreaterThanOrEqualTo("dataRegistro", inicioMesPassadoStr)
+                .whereLessThanOrEqualTo("dataRegistro", fimMesPassadoStr)
                 .get()
                 .addOnSuccessListener(snapshots -> {
                     lista.clear();
                     for (QueryDocumentSnapshot doc : snapshots) {
-                        Atendimento a = doc.toObject(Atendimento.class);
+                        Administrador a = doc.toObject(Administrador.class);
                         Long id = doc.getLong("id");
                         if (id != null) {
                             a.setId(id);
@@ -110,12 +125,8 @@ public class HomeFragment extends Fragment {
                     adapter.notifyDataSetChanged();
                 })
                 .addOnFailureListener(e ->
-                        Toast.makeText(getContext(), "Erro ao carregar " , Toast.LENGTH_SHORT).show()
+                        Toast.makeText(getContext(), "Erro ao carregar", Toast.LENGTH_SHORT).show()
                 );
-    }
-
-    private String getDataHoraAtual() {
-        return new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new Date());
     }
 
     @Override
