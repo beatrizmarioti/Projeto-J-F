@@ -30,7 +30,7 @@ public class DashboardFragment extends Fragment {
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         // Referências aos inputs e botão
-        TextInputLayout nomeInput = binding.senhaAdmin;
+        TextInputLayout nomeInput = binding.nomeIn;
         TextInputLayout numeroInput = binding.numIn;
         Button btnSalvar = binding.btnSalvar;
 

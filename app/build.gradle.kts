@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.android.application)
     id("com.google.gms.google-services")
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.bea.projetojef"
-        minSdk = 33
+        minSdk = 30
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -52,4 +53,7 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
 
     implementation("com.google.android.material:material:1.10.0")
+
+    implementation ("androidx.navigation:navigation-fragment:2.7.7")
+    implementation ("androidx.navigation:navigation-ui:2.7.7")
 }

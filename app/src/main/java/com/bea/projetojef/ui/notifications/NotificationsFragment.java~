@@ -48,7 +48,7 @@ public class NotificationsFragment extends Fragment {
                     if (valido) {
                         Toast.makeText(getContext(), "Senha válida, acesso permitido", Toast.LENGTH_SHORT).show();
                         NavController navController = NavHostFragment.findNavController(NotificationsFragment.this);
-                        navController.navigate(R.id.action_navigation_notifications_to_fragment_navigation_remover2);
+                        navController.navigate(R.id.action_navigation_notifications_to_navigation_remover);
 
                     } else {
                         Toast.makeText(getContext(), "Senha inválida, acesso negado", Toast.LENGTH_SHORT).show();
