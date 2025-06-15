@@ -71,15 +71,23 @@ public class Database {
     }
 
     public void remover(Context c, Administrador argAdmin) {
-        // Abrir banco de dados
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("colaborador").document(String.valueOf(argAdmin.getId())).delete().addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(c, "Removido com sucesso", Toast.LENGTH_SHORT).show();
-            }
-        });
+
+        if (argAdmin.getDocumentId() == null) {
+            Toast.makeText(c, "Não foi possível excluir. documentId nulo.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        db.collection("colaborador")
+                .document(argAdmin.getDocumentId()) // Agora removendo pelo documentId
+                .delete()
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(c, "Removido com sucesso", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(c, "Erro ao remover: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
+
 
     public void validarCachar(String senhaDigitada, SenhaCallback callback) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
