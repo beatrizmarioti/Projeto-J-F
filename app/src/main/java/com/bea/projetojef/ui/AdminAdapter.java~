@@ -52,6 +52,7 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.ViewHolder> 
             // Remove do banco de dados
             db.remover(v.getContext(), adm);
 
+            // Remove da lista local e avisa o adapter para atualizar a RecyclerView
             lista.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, lista.size());
