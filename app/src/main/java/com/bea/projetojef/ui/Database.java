@@ -3,17 +3,14 @@ package com.bea.projetojef.ui;
 import android.content.Context;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import com.google.android.gms.tasks.OnCompleteListener;
+import androidx.annotation.Nullable;
+
+import com.bea.projetojef.Administrador;
+import com.bea.projetojef.Atendimento;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.bea.projetojef.Cracha;
 
 public class Database {
     public Database() {
@@ -44,7 +41,7 @@ public class Database {
                 final int idParaSalvar = novoId;
 
                 // Criar novo crachá
-                Cracha registroCracha = new Cracha();
+                Atendimento registroCracha = new Atendimento();
                 registroCracha.setId(idParaSalvar);
                 registroCracha.setNome(nome);
                 registroCracha.setCracha(cracha);
@@ -71,6 +68,48 @@ public class Database {
                 Toast.makeText(context, "Erro ao gerar ID: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void remover(Context c, Administrador argAdmin) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        if (argAdmin.getDocumentId() == null) {
+            Toast.makeText(c, "Não foi possível excluir. documentId nulo.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        db.collection("colaborador")
+                .document(argAdmin.getDocumentId())
+                .delete()
+                .addOnSuccessListener(unused -> {
+                    Toast.makeText(c, "Removido com sucesso", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(c, "Erro ao remover: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
+    public void validarCachar(String senhaDigitada, SenhaCallback callback) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("admin")
+                .document("senha")
+                .get()
+                .addOnSuccessListener(documentSnapshot -> {
+                    if (documentSnapshot.exists()) {
+                        String senha = documentSnapshot.getString("senha");
+                        if (senha != null && senha.equals(senhaDigitada)) {
+                            callback.onResultado(true);
+                        } else {
+                            callback.onResultado(false);
+                        }
+                    } else {
+                        callback.onResultado(false);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    callback.onResultado(false);
+                });
     }
 
 }
