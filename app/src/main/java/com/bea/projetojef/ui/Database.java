@@ -78,7 +78,7 @@ public class Database {
             return;
         }
         db.collection("colaborador")
-                .document(argAdmin.getDocumentId()) // Agora removendo pelo documentId
+                .document(argAdmin.getDocumentId())
                 .delete()
                 .addOnSuccessListener(unused -> {
                     Toast.makeText(c, "Removido com sucesso", Toast.LENGTH_SHORT).show();

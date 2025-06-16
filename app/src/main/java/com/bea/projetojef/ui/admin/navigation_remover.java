@@ -45,6 +45,7 @@ public class navigation_remover extends Fragment {
         db = FirebaseFirestore.getInstance();
 
         adapter = new AdminAdapter(lista);
+
         //organização dos itens na tela
         binding.recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -87,7 +88,7 @@ public class navigation_remover extends Fragment {
                         }
 
                         try {
-                            Date dataColaborador = sdf.parse(inicio);
+                            Date dataColaborador = sdf.parse(inicio);//convertendo sdf para date
 
                             if (dataColaborador.compareTo(inicioMesPassado) >= 0 &&
                                     dataColaborador.compareTo(fimMesPassado) <= 0) {
@@ -99,7 +100,7 @@ public class navigation_remover extends Fragment {
                     }
 
                     if (lista.isEmpty()) {
-                        Toast.makeText(getContext(), "Nenhum colaborador encontrado do mes passado.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Nenhum colaborador encontrado do mês passado.", Toast.LENGTH_SHORT).show();
                     }
 
                     adapter.notifyDataSetChanged();
