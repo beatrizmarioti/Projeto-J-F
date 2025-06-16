@@ -1,33 +1,29 @@
-package com.bea.projetojef.ui.dashboard;
+package com.bea.projetojef.ui.Registrar;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.bea.projetojef.databinding.FragmentDashboardBinding;
+import com.bea.projetojef.databinding.FragmentRegistrarBinding;
 import com.bea.projetojef.ui.Database;
 import com.google.android.material.textfield.TextInputLayout;
 
-public class DashboardFragment extends Fragment {
+public class RegistrarFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentRegistrarBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        RegistrarViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(RegistrarViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentRegistrarBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         // Referências aos inputs e botão
         TextInputLayout nomeInput = binding.senhaAdmin;

@@ -1,4 +1,4 @@
-package com.bea.projetojef.ui.home;
+package com.bea.projetojef.ui.Busca;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.bea.projetojef.Atendimento;
 import com.bea.projetojef.ui.AtendimentoAdapter;
-import com.bea.projetojef.databinding.FragmentHomeBinding;
+import com.bea.projetojef.databinding.FragmentBuscaBinding;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -22,9 +22,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class HomeFragment extends Fragment {
+public class BuscaFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentBuscaBinding binding;
     private FirebaseFirestore db;
     private final List<Atendimento> lista = new ArrayList<>();
     private AtendimentoAdapter adapter;
@@ -32,7 +32,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentBuscaBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 

@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_busca"
         android:icon="@drawable/search_24"
         android:title="Busca" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_registrar"
         android:icon="@drawable/clipboardlist4"
         android:title="Registrar" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_admin"
         android:icon="@drawable/admin24"
         android:title="Admin" />
 

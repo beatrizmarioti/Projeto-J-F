@@ -1,14 +1,14 @@
-package com.bea.projetojef.ui.notifications;
+package com.bea.projetojef.ui.Adminn;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class NotificationsViewModel extends ViewModel {
+public class AdminViewModel extends ViewModel {
 
     private final MutableLiveData<String> mText;
 
-    public NotificationsViewModel() {
+    public AdminViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is notifications fragment");
     }

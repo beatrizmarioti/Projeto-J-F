@@ -1,4 +1,4 @@
-package com.bea.projetojef.ui.notifications;
+package com.bea.projetojef.ui.Adminn;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,7 +14,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.bea.projetojef.R;
-import com.bea.projetojef.databinding.FragmentNotificationsBinding;
+import com.bea.projetojef.databinding.FragmentAdminBinding;
 import com.bea.projetojef.ui.Database;
 import com.bea.projetojef.ui.SenhaCallback;
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,19 +22,19 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationsFragment extends Fragment {
+public class AdminFragment extends Fragment {
 
     private final List<com.bea.projetojef.Administrador> lista = new ArrayList<>();
-    private FragmentNotificationsBinding binding;
+    private FragmentAdminBinding binding;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        AdminViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(AdminViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentAdminBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         Button login = root.findViewById(R.id.loginADM_button);
@@ -47,7 +47,7 @@ public class NotificationsFragment extends Fragment {
                 public void onResultado(boolean valido) {
                     if (valido) {
                         Toast.makeText(getContext(), "Senha válida, acesso permitido", Toast.LENGTH_SHORT).show();
-                        NavController navController = NavHostFragment.findNavController(NotificationsFragment.this);
+                        NavController navController = NavHostFragment.findNavController(AdminFragment.this);
                         navController.navigate(R.id.action_navigation_notifications_to_fragment_navigation_remover2);
 
                     } else {
